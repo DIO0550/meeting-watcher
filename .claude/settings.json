@@ -1,0 +1,35 @@
+{
+  "extraKnownMarketplaces": {
+    "d-market-spec": {
+      "source": {
+        "source": "github",
+        "repo": "DIO0550/d-market-spec"
+      }
+    },
+    "d-market-git": {
+      "source": {
+        "source": "github",
+        "repo": "DIO0550/d-market-git"
+      },
+      "autoUpdate": true
+    },
+    "d-market-code-review": {
+      "source": {
+        "source": "github",
+        "repo": "DIO0550/d-market-code-review"
+      }
+    },
+    "d-market-doc-gen": {
+      "source": {
+        "source": "github",
+        "repo": "DIO0550/d-market-doc-gen"
+      }
+    },
+    "d-market-statusline": {
+      "source": {
+        "source": "github",
+        "repo": "DIO0550/d-market-statusline"
+      }
+    }
+  }
+}

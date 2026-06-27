@@ -1,0 +1,8 @@
+approvals_reviewer = "guardian_subagent"
+
+[features]
+default_mode_request_user_input = true
+
+[mcp_servers.xcode]
+command = "nc"
+args = ["-N", "host.docker.internal", "8080"]
