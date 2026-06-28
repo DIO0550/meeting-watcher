@@ -2,12 +2,10 @@ import Testing
 import MeetingSignal
 
 struct SignalKindTests {
-    @Test func exposesExpectedSignalKinds() {
-        let kinds: [SignalKind] = [.microphone, .camera, .processWindow]
-
-        #expect(kinds.contains(.microphone))
-        #expect(kinds.contains(.camera))
-        #expect(kinds.contains(.processWindow))
+    @Test func exposesExpectedSignalKindCases() {
+        _ = SignalKind.microphone
+        _ = SignalKind.camera
+        _ = SignalKind.processWindow
     }
 
     @Test func rawValuesMatchStableIdentifiers() {
