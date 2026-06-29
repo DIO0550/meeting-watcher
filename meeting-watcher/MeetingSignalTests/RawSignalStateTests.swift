@@ -13,6 +13,10 @@ struct RawSignalStateTests {
         #expect(RawSignalState.Status.unknown.rawValue == "unknown")
     }
 
+    @Test func statusRawValueInitializerRestoresUnknown() {
+        #expect(RawSignalState.Status(rawValue: "unknown") == .unknown)
+    }
+
     @Test func initializesWithStatusAndEmptyMetadata() {
         let state = RawSignalState(status: .unknown)
 
