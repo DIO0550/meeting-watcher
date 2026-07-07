@@ -16,19 +16,21 @@ struct SignalSourceTests {
         }
     }
 
-    @Test func fakeSignalSourceCanPublishControlledSignalChanges() {
+    @Test func fakeSignalSourcePublishesAndStoresControlledSignalChanges() {
         let source = FakeSignalSource()
         let consumer: any SignalSource = source
         let calls = SignalCallRecorder()
+        let state = RawSignalState(status: .active)
 
         consumer.subscribe { kind, state in
             calls.append(kind, state)
         }
-        source.emit(.microphone, RawSignalState(status: .active))
+        source.emit(.microphone, state)
 
         #expect(calls.calls.count == 1)
         #expect(calls.calls.first?.0 == .microphone)
-        #expect(calls.calls.first?.1 == RawSignalState(status: .active))
+        #expect(calls.calls.first?.1 == state)
+        #expect(consumer.snapshot()[.microphone] == state)
     }
 
     @Test func signalSourceUnsubscribeStopsFutureNotifications() {
