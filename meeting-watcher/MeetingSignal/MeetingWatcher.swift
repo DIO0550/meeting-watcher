@@ -1,7 +1,7 @@
 import Foundation
 
 @MainActor
-public final class MeetingWatcher {
+public final class MeetingWatcher: SignalSource {
     public typealias Snapshot = [SignalKind: RawSignalState]
     public typealias Listener = @MainActor @Sendable (SignalKind, RawSignalState) throws -> Void
     public typealias Unsubscribe = @MainActor @Sendable () -> Void
