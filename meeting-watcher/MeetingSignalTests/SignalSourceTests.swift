@@ -22,8 +22,8 @@ struct SignalSourceTests {
         let calls = SignalCallRecorder()
         let state = RawSignalState(status: .active)
 
-        consumer.subscribe { kind, state in
-            calls.append(kind, state)
+        consumer.subscribe { kind, receivedState in
+            calls.append(kind, receivedState)
         }
         source.emit(.microphone, state)
 
