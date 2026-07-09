@@ -198,10 +198,10 @@ private func block(in text: String, startingWith marker: String) -> String? {
         return nil
     }
     let searchStart = start.upperBound
-    while let end = text.range(of: "\n\t\t};", range: searchStart..<text.endIndex) {
-        return String(text[start.lowerBound..<end.upperBound])
+    guard let end = text.range(of: "\n\t\t};", range: searchStart..<text.endIndex) else {
+        return nil
     }
-    return nil
+    return String(text[start.lowerBound..<end.upperBound])
 }
 
 private func projectFile(frameworkLinkTarget: String?, targetDependencyTarget: String?) -> String {
