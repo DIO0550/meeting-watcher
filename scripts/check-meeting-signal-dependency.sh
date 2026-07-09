@@ -18,10 +18,13 @@ report_failure() {
 }
 
 check_forbidden_imports() {
-  local dir
+  local dir matches pattern
+  pattern="^[[:space:]]*(@[^[:space:]]+[[:space:]]+)*import[[:space:]]+MeetingSignal([[:space:]]|$)"
   for dir in "${FORBIDDEN_SOURCE_DIRS[@]}"; do
     [[ -d "$dir" ]] || continue
-    if grep -RInE '^[[:space:]]*(@[^[:space:]]+[[:space:]]+)*import[[:space:]]+MeetingSignal([[:space:]]|$)' "$dir" --include '*.swift'; then
+    matches="$(find "$dir" -type f -name "*.swift" -exec grep -HnE "$pattern" {} + || true)"
+    if [[ -n "$matches" ]]; then
+      printf "%s\n" "$matches"
       report_failure "MeetingSignal import is forbidden in watcher-side sources: $dir"
     fi
   done
