@@ -98,10 +98,10 @@ struct DependencyBoundaryScriptTests {
             .appendingPathComponent("meeting-watcher/meeting-watcher.xcodeproj/project.pbxproj"))
         let targetBlock = try #require(block(
             in: project,
-            startingWith: "3AC63B182FE6093600F49D5D /* meeting-watcher */ = {"
+            startingWith: "/* meeting-watcher */ = {\n\t\t\tisa = PBXNativeTarget;"
         ))
-        let checkIndex = try #require(targetBlock.range(of: "4D1800200000000000000021 /* Check MeetingSignal dependency boundary */"))
-        let sourcesIndex = try #require(targetBlock.range(of: "3AC63B152FE6093600F49D5D /* Sources */"))
+        let checkIndex = try #require(targetBlock.range(of: "/* Check MeetingSignal dependency boundary */"))
+        let sourcesIndex = try #require(targetBlock.range(of: "/* Sources */"))
 
         #expect(checkIndex.lowerBound < sourcesIndex.lowerBound)
     }
