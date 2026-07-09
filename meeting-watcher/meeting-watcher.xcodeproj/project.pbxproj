@@ -151,6 +151,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3AC63B3A2FE6093A00F49D5D /* Build configuration list for PBXNativeTarget "meeting-watcher" */;
 			buildPhases = (
+				4D1800200000000000000021 /* Check MeetingSignal dependency boundary */,
 				3AC63B152FE6093600F49D5D /* Sources */,
 				3AC63B162FE6093600F49D5D /* Frameworks */,
 				3AC63B172FE6093600F49D5D /* Resources */,
@@ -350,6 +351,29 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4D1800200000000000000021 /* Check MeetingSignal dependency boundary */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/../scripts/check-meeting-signal-dependency.sh",
+				"$(SRCROOT)/meeting-watcher.xcodeproj/project.pbxproj",
+			);
+			name = "Check MeetingSignal dependency boundary";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "bash \"$SRCROOT/../scripts/check-meeting-signal-dependency.sh\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3AC63B152FE6093600F49D5D /* Sources */ = {
