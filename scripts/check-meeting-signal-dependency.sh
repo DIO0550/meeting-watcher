@@ -109,7 +109,7 @@ target_dependency_resolves_to_meeting_signal() {
   remote_id="$(object_block "$proxy_id" | sed -nE 's/.*remoteGlobalIDString = ([A-Z0-9]{24}).*/\1/p' | head -1)"
   remote_info="$(object_block "$proxy_id" | sed -nE 's/.*remoteInfo = "?([^";]+)"?;.*/\1/p' | head -1)"
   [[ "$remote_info" == "MeetingSignal" ]] && return 0
-  [[ -n "$remote_id" ]] && object_block "$remote_id" | grep -q 'name = MeetingSignal;'
+  [[ -n "$remote_id" ]] && object_block "$remote_id" | grep -Eq 'name = "?MeetingSignal"?;'
 }
 
 check_project_dependencies() {
