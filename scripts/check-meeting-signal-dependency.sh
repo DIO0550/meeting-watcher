@@ -100,7 +100,7 @@ target_dependency_resolves_to_meeting_signal() {
   local dep_block target_id proxy_id remote_id remote_info
   dep_block="$(object_block "$dep_id")"
   target_id="$(printf '%s\n' "$dep_block" | sed -nE 's/.*target = ([A-Z0-9]{24}).*/\1/p' | head -1)"
-  if [[ -n "$target_id" ]] && object_block "$target_id" | grep -q 'name = MeetingSignal;'; then
+  if [[ -n "$target_id" ]] && object_block "$target_id" | grep -Eq 'name = "?MeetingSignal"?;'; then
     return 0
   fi
 
