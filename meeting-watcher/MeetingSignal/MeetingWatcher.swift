@@ -1,5 +1,6 @@
 import Foundation
 
+/// In-memory raw signal source used to publish watcher observations.
 @MainActor
 public final class MeetingWatcher: SignalSource {
     public typealias Snapshot = [SignalKind: RawSignalState]

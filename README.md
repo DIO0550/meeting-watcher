@@ -47,6 +47,7 @@ xcodebuild \
 - `** BUILD SUCCEEDED **` が表示される
 - `meeting-watcher` macOS アプリターゲットがビルドされる
 - `MeetingSignal.framework` がビルドされる
+- `meeting-watcher` / `meeting-watcherTests` から `MeetingSignal` への直接依存がないことを確認する
 
 テストを実行する:
 
