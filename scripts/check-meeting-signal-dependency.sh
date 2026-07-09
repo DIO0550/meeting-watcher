@@ -88,7 +88,7 @@ framework_phase_links_meeting_signal() {
     file_ref_id="$(object_block "$build_file_id" | sed -nE 's/.*fileRef = ([A-Z0-9]{24}).*/\1/p' | head -1)"
     [[ -n "$file_ref_id" ]] || continue
     file_ref_block="$(object_block "$file_ref_id")"
-    if printf '%s\n' "$file_ref_block" | grep -q 'path = MeetingSignal.framework;'; then
+    if printf '%s\n' "$file_ref_block" | grep -Eq 'path = "?MeetingSignal[.]framework"?;'; then
       return 0
     fi
   done
