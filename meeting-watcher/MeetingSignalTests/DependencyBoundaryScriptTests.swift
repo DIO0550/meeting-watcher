@@ -96,10 +96,7 @@ struct DependencyBoundaryScriptTests {
     @Test func runScriptPhasePrecedesSourcesInAppTarget() throws {
         let project = try String(contentsOf: repositoryRoot()
             .appendingPathComponent("meeting-watcher/meeting-watcher.xcodeproj/project.pbxproj"))
-        let targetBlock = try #require(block(
-            in: project,
-            startingWith: "/* meeting-watcher */ = {\n\t\t\tisa = PBXNativeTarget;"
-        ))
+        let targetBlock = try #require(nativeTargetBlock(named: "meeting-watcher", in: project))
         let checkIndex = try #require(targetBlock.range(of: "/* Check MeetingSignal dependency boundary */"))
         let sourcesIndex = try #require(targetBlock.range(of: "/* Sources */"))
 
@@ -193,15 +190,24 @@ private func repositoryRoot() -> URL {
         .deletingLastPathComponent()
 }
 
-private func block(in text: String, startingWith marker: String) -> String? {
-    guard let start = text.range(of: marker) else {
-        return nil
+private func nativeTargetBlock(named name: String, in text: String) -> String? {
+    var searchStart = text.startIndex
+    while let isa = text.range(of: "isa = PBXNativeTarget;", range: searchStart..<text.endIndex) {
+        guard let objectMarker = text[..<isa.lowerBound].range(of: " = {", options: .backwards) else {
+            searchStart = isa.upperBound
+            continue
+        }
+        let objectStart = text[..<objectMarker.lowerBound].lastIndex(of: "\n").map(text.index(after:)) ?? text.startIndex
+        guard let objectEnd = text.range(of: "\n\t\t};", range: isa.upperBound..<text.endIndex) else {
+            return nil
+        }
+        let candidate = String(text[objectStart..<objectEnd.upperBound])
+        if candidate.contains("name = \"\(name)\";") || candidate.contains("name = \(name);") {
+            return candidate
+        }
+        searchStart = objectEnd.upperBound
     }
-    let searchStart = start.upperBound
-    guard let end = text.range(of: "\n\t\t};", range: searchStart..<text.endIndex) else {
-        return nil
-    }
-    return String(text[start.lowerBound..<end.upperBound])
+    return nil
 }
 
 private func projectFile(frameworkLinkTarget: String?, targetDependencyTarget: String?) -> String {
