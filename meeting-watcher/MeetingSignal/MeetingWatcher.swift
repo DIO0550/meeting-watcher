@@ -3,7 +3,7 @@ import Foundation
 /// In-memory raw signal source used to publish watcher observations.
 @MainActor
 public final class MeetingWatcher: SignalSource {
-    public typealias Snapshot = [SignalKind: RawSignalState]
+    public typealias Snapshot = SignalSnapshot
     public typealias Listener = @MainActor @Sendable (SignalKind, RawSignalState) throws -> Void
     public typealias Unsubscribe = @MainActor @Sendable () -> Void
 

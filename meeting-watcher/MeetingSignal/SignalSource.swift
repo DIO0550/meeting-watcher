@@ -4,7 +4,10 @@
 /// protocol remains in `MeetingSignal` for the current minimal-change phase.
 @MainActor
 public protocol SignalSource {
-    typealias Snapshot = [SignalKind: RawSignalState]
+    /// Production snapshots contain every `SignalKind`; an uncollected signal
+    /// is represented by `RawSignalState(status: .unknown)` rather than a
+    /// missing key.
+    typealias Snapshot = SignalSnapshot
     typealias Listener = @MainActor @Sendable (SignalKind, RawSignalState) throws -> Void
     typealias Unsubscribe = @MainActor @Sendable () -> Void
 
