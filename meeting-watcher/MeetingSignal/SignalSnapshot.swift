@@ -1,5 +1,3 @@
-import Foundation
-
 /// A complete point-in-time view of all raw meeting signals.
 ///
 /// Production snapshots contain every `SignalKind`. A signal that has not
