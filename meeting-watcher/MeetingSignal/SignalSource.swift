@@ -1,12 +1,12 @@
-/// Public read/subscribe boundary for raw meeting watcher signals.
+/// 会議ウォーカーの生シグナルを読み取り、購読するための公開境界です。
 ///
-/// Watcher-side app targets must not depend on `MeetingSignal` directly; this
-/// protocol remains in `MeetingSignal` for the current minimal-change phase.
+/// ウォーカー側のアプリターゲットは `MeetingSignal` に直接依存してはいけません。
+/// 現在の最小変更フェーズでは、このプロトコルを `MeetingSignal` に置きます。
 @MainActor
 public protocol SignalSource {
-    /// Production snapshots contain every `SignalKind`; an uncollected signal
-    /// is represented by `RawSignalState(status: .unknown)` rather than a
-    /// missing key.
+    /// 実運用のスナップショットには、すべての `SignalKind` が含まれます。
+    /// 収集されていないシグナルはキーの欠落ではなく、
+    /// `RawSignalState(status: .unknown)` で表します。
     typealias Snapshot = SignalSnapshot
     typealias Listener = @MainActor @Sendable (SignalKind, RawSignalState) throws -> Void
     typealias Unsubscribe = @MainActor @Sendable () -> Void

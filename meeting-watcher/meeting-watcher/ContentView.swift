@@ -1,8 +1,9 @@
+
 //
-//  ContentView.swift
-//  meeting-watcher
+//  ファイル: ContentView.swift
+//  プロジェクト: meeting-watcher
 //
-//  Created by DIO on 2026/06/20.
+//  作成者: DIO（2026/06/20）
 //
 
 import SwiftUI
