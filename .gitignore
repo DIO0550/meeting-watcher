@@ -1,62 +1,62 @@
 # Xcode
 #
-# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+# gitignoreのメンテナーへ: Global/Xcode.gitignore、Objective-C.gitignore、Swift.gitignoreの更新も忘れないでください。
 
 ## macOS
 .DS_Store
 
-## User settings
+## ユーザー設定
 xcuserdata/
 
-## Obj-C/Swift specific
+## Obj-C/Swift固有設定
 *.hmap
 
-## App packaging
+## アプリパッケージ
 *.ipa
 *.dSYM.zip
 *.dSYM
 
-## Playgrounds
+## Playground
 timeline.xctimeline
 playground.xcworkspace
 
 # Swift Package Manager
 #
-# Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
+# Swift Package Managerの依存関係のソースコードをコミット対象外にする場合は、この行を追加します。
 # Packages/
 # Package.pins
 # Package.resolved
 # *.xcodeproj
 #
-# Xcode automatically generates this directory with a .xcworkspacedata file and xcuserdata
-# hence it is not needed unless you have added a package configuration file to your project
+# Xcodeはこのディレクトリに.xcworkspacedataファイルとxcuserdataを自動生成します。
+# そのため、プロジェクトにパッケージ設定ファイルを追加していない限り、コミットする必要はありません。
 # .swiftpm
 
 .build/
 
 # CocoaPods
 #
-# We recommend against adding the Pods directory to your .gitignore. However
-# you should judge for yourself, the pros and cons are mentioned at:
+# Podsディレクトリを.gitignoreに追加しないことを推奨します。
+# ただし、利点と欠点を確認したうえで判断してください。詳細は次を参照してください。
 # https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
 #
 # Pods/
 #
-# Add this line if you want to avoid checking in source code from the Xcode workspace
+# Xcodeワークスペースのソースコードをコミット対象外にする場合は、この行を追加します。
 # *.xcworkspace
 
 # Carthage
 #
-# Add this line if you want to avoid checking in source code from Carthage dependencies.
+# Carthageの依存関係のソースコードをコミット対象外にする場合は、この行を追加します。
 # Carthage/Checkouts
 
 Carthage/Build/
 
 # fastlane
 #
-# It is recommended to not store the screenshots in the git repo.
-# Instead, use fastlane to re-generate the screenshots whenever they are needed.
-# For more information about the recommended setup visit:
+# スクリーンショットをgitリポジトリに保存することは推奨しません。
+# 必要なときにfastlaneでスクリーンショットを再生成してください。
+# 推奨設定の詳細は次を参照してください。
 # https://docs.fastlane.tools/best-practices/source-control/#source-control
 
 fastlane/report.xml
@@ -64,5 +64,5 @@ fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
 
-# devcontainer init flag
+# devcontainer初期化フラグ
 .devcontainer/.init-done
