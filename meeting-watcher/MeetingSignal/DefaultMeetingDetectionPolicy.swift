@@ -3,6 +3,9 @@
 /// いずれかのシグナルが `.active` なら会議中、すべてのシグナルが
 /// `.inactive` なら非会議中、未確定のシグナルが混在する場合は
 /// `.unknown` と判定します。
+///
+/// `SignalSnapshot` はすべての `SignalKind` を含むことを想定しますが、
+/// 欠落したシグナルがある場合も `.unknown` として扱います。
 @MainActor
 public struct DefaultMeetingDetectionPolicy: MeetingDetectionPolicy, Sendable {
     public init() {}
