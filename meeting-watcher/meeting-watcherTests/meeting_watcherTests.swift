@@ -1,8 +1,8 @@
 //
-//  meeting_watcherTests.swift
-//  meeting-watcherTests
+//  ファイル: meeting_watcherTests.swift
+//  ターゲット: meeting-watcherTests
 //
-//  Created by DIO on 2026/06/20.
+//  作成者: DIO（2026/06/20）
 //
 
 import Testing
@@ -11,8 +11,8 @@ import Testing
 struct meeting_watcherTests {
 
     @Test func example() async throws {
-        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
-        // Swift Testing Documentation
+        // ここにテストを記述し、`#expect(...)` などのAPIで期待する条件を検証します。
+        // Swift Testingのドキュメント
         // https://developer.apple.com/documentation/testing
     }
 

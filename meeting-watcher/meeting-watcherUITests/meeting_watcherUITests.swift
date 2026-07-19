@@ -1,8 +1,8 @@
 //
-//  meeting_watcherUITests.swift
-//  meeting-watcherUITests
+//  ファイル: meeting_watcherUITests.swift
+//  ターゲット: meeting-watcherUITests
 //
-//  Created by DIO on 2026/06/20.
+//  作成者: DIO（2026/06/20）
 //
 
 import XCTest
@@ -10,32 +10,33 @@ import XCTest
 final class meeting_watcherUITests: XCTestCase {
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        // ここにセットアップコードを記述します。このメソッドは各テストメソッドの呼び出し前に実行されます。
 
-        // In UI tests it is usually best to stop immediately when a failure occurs.
+        // UIテストでは、失敗が発生したらすぐに停止するのが一般的です。
         continueAfterFailure = false
 
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
+        // UIテストでは、インターフェースの向きなど、テストの実行に必要な初期状態を事前に設定することが重要です。
+        // setUpメソッドはその設定に適しています。
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        // ここに後片付けコードを記述します。このメソッドは各テストメソッドの呼び出し後に実行されます。
     }
 
     @MainActor
     func testExample() throws {
-        // UI tests must launch the application that they test.
+        // UIテストでは、テスト対象のアプリケーションを起動する必要があります。
         let app = XCUIApplication()
         app.launch()
 
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // XCUIAutomation Documentation
+        // XCTAssertなどの関数を使って、テストが正しい結果を返すことを検証します。
+        // XCUIAutomationのドキュメント
         // https://developer.apple.com/documentation/xcuiautomation
     }
 
     @MainActor
     func testLaunchPerformance() throws {
-        // This measures how long it takes to launch your application.
+        // アプリケーションの起動にかかる時間を測定します。
         measure(metrics: [XCTApplicationLaunchMetric()]) {
             XCUIApplication().launch()
         }
