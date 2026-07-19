@@ -1,8 +1,8 @@
 //
-//  meeting_watcherUITestsLaunchTests.swift
-//  meeting-watcherUITests
+//  ファイル: meeting_watcherUITestsLaunchTests.swift
+//  ターゲット: meeting-watcherUITests
 //
-//  Created by DIO on 2026/06/20.
+//  作成者: DIO（2026/06/20）
 //
 
 import XCTest
@@ -22,9 +22,9 @@ final class meeting_watcherUITestsLaunchTests: XCTestCase {
         let app = XCUIApplication()
         app.launch()
 
-        // Insert steps here to perform after app launch but before taking a screenshot,
-        // such as logging into a test account or navigating somewhere in the app
-        // XCUIAutomation Documentation
+        // アプリ起動後、スクリーンショットを撮影する前に実行する手順をここに追加します。
+        // テストアカウントへのログインやアプリ内の画面遷移などを記述します。
+        // XCUIAutomationのドキュメント
         // https://developer.apple.com/documentation/xcuiautomation
 
         let attachment = XCTAttachment(screenshot: app.screenshot())

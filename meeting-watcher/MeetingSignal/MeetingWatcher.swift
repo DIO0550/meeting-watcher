@@ -1,6 +1,6 @@
 import Foundation
 
-/// In-memory raw signal source used to publish watcher observations.
+/// 監視対象の観測結果を公開するインメモリの生シグナルソースです。
 @MainActor
 public final class MeetingWatcher: SignalSource {
     public typealias Snapshot = SignalSnapshot

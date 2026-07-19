@@ -1,4 +1,4 @@
-/// The high-level meeting state produced by a detection policy.
+/// 判定ポリシーが生成する高レベルの会議状態です。
 public enum MeetingState: Equatable, Sendable {
     case inMeeting
     case notInMeeting

@@ -97,8 +97,8 @@ struct DependencyBoundaryScriptTests {
         let project = try String(contentsOf: repositoryRoot()
             .appendingPathComponent("meeting-watcher/meeting-watcher.xcodeproj/project.pbxproj"))
         let targetBlock = try #require(nativeTargetBlock(named: "meeting-watcher", in: project))
-        let checkIndex = try #require(targetBlock.range(of: "/* Check MeetingSignal dependency boundary */"))
-        let sourcesIndex = try #require(targetBlock.range(of: "/* Sources */"))
+        let checkIndex = try #require(targetBlock.range(of: "/* MeetingSignal依存境界チェック */"))
+        let sourcesIndex = try #require(targetBlock.range(of: "/* ソース */"))
 
         #expect(checkIndex.lowerBound < sourcesIndex.lowerBound)
     }
@@ -211,10 +211,10 @@ private func nativeTargetBlock(named name: String, in text: String) -> String? {
 }
 
 private func projectFile(frameworkLinkTarget: String?, targetDependencyTarget: String?) -> String {
-    let appFrameworkFiles = frameworkLinkTarget == "meeting-watcher" ? "\n\t\t\t\t4D1800160000000000000018 /* MeetingSignal.framework in Frameworks */," : ""
-    let appTestsFrameworkFiles = frameworkLinkTarget == "meeting-watcherTests" ? "\n\t\t\t\t4D1800160000000000000018 /* MeetingSignal.framework in Frameworks */," : ""
-    let appDependencies = targetDependencyTarget == "meeting-watcher" ? "\n\t\t\t\t4D18001B0000000000000018 /* PBXTargetDependency */," : ""
-    let appTestsDependencies = targetDependencyTarget == "meeting-watcherTests" ? "\n\t\t\t\t4D18001B0000000000000018 /* PBXTargetDependency */," : ""
+    let appFrameworkFiles = frameworkLinkTarget == "meeting-watcher" ? "\n\t\t\t\t4D1800160000000000000018 /* MeetingSignal.framework（フレームワーク内） */," : ""
+    let appTestsFrameworkFiles = frameworkLinkTarget == "meeting-watcherTests" ? "\n\t\t\t\t4D1800160000000000000018 /* MeetingSignal.framework（フレームワーク内） */," : ""
+    let appDependencies = targetDependencyTarget == "meeting-watcher" ? "\n\t\t\t\t4D18001B0000000000000018 /* ターゲット依存関係 */," : ""
+    let appTestsDependencies = targetDependencyTarget == "meeting-watcherTests" ? "\n\t\t\t\t4D18001B0000000000000018 /* ターゲット依存関係 */," : ""
 
     return """
 // !$*UTF8*$!
@@ -223,39 +223,39 @@ private func projectFile(frameworkLinkTarget: String?, targetDependencyTarget: S
 \tclasses = {};
 \tobjectVersion = 77;
 \tobjects = {
-\t\t4D1800160000000000000018 /* MeetingSignal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D1800070000000000000018 /* MeetingSignal.framework */; };
+\t\t4D1800160000000000000018 /* MeetingSignal.framework（フレームワーク内） */ = {isa = PBXBuildFile; fileRef = 4D1800070000000000000018 /* MeetingSignal.framework */; };
 \t\t4D1800070000000000000018 /* MeetingSignal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MeetingSignal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-\t\t4D18001A0000000000000018 /* PBXContainerItemProxy */ = {
+\t\t4D18001A0000000000000018 /* コンテナ項目プロキシ */ = {
 \t\t\tisa = PBXContainerItemProxy;
 \t\t\tremoteGlobalIDString = 4D1800010000000000000018;
 \t\t\tremoteInfo = MeetingSignal;
 \t\t};
-\t\t3AC63B162FE6093600F49D5D /* Frameworks */ = {
+\t\t3AC63B162FE6093600F49D5D /* フレームワーク */ = {
 \t\t\tisa = PBXFrameworksBuildPhase;
 \t\t\tfiles = (
 \t\t\t\(appFrameworkFiles)
 \t\t\t);
 \t\t};
-\t\t3AC63B232FE6093A00F49D5D /* Frameworks */ = {
+\t\t3AC63B232FE6093A00F49D5D /* フレームワーク */ = {
 \t\t\tisa = PBXFrameworksBuildPhase;
 \t\t\tfiles = (
 \t\t\t\(appTestsFrameworkFiles)
 \t\t\t);
 \t\t};
-\t\t4D1800140000000000000018 /* Frameworks */ = {
+\t\t4D1800140000000000000018 /* フレームワーク */ = {
 \t\t\tisa = PBXFrameworksBuildPhase;
 \t\t\tfiles = (
-\t\t\t\t4D1800160000000000000018 /* MeetingSignal.framework in Frameworks */,
+\t\t\t\t4D1800160000000000000018 /* MeetingSignal.framework（フレームワーク内） */,
 \t\t\t);
 \t\t};
-\t\t3AC63B152FE6093600F49D5D /* Sources */ = { isa = PBXSourcesBuildPhase; files = (); };
-\t\t3AC63B222FE6093A00F49D5D /* Sources */ = { isa = PBXSourcesBuildPhase; files = (); };
-\t\t4D1800130000000000000018 /* Sources */ = { isa = PBXSourcesBuildPhase; files = (); };
+\t\t3AC63B152FE6093600F49D5D /* ソース */ = { isa = PBXSourcesBuildPhase; files = (); };
+\t\t3AC63B222FE6093A00F49D5D /* ソース */ = { isa = PBXSourcesBuildPhase; files = (); };
+\t\t4D1800130000000000000018 /* ソース */ = { isa = PBXSourcesBuildPhase; files = (); };
 \t\t3AC63B182FE6093600F49D5D /* meeting-watcher */ = {
 \t\t\tisa = PBXNativeTarget;
 \t\t\tbuildPhases = (
-\t\t\t\t3AC63B152FE6093600F49D5D /* Sources */,
-\t\t\t\t3AC63B162FE6093600F49D5D /* Frameworks */,
+\t\t\t\t3AC63B152FE6093600F49D5D /* ソース */,
+\t\t\t\t3AC63B162FE6093600F49D5D /* フレームワーク */,
 \t\t\t);
 \t\t\tdependencies = (
 \t\t\t\(appDependencies)
@@ -265,8 +265,8 @@ private func projectFile(frameworkLinkTarget: String?, targetDependencyTarget: S
 \t\t3AC63B252FE6093A00F49D5D /* meeting-watcherTests */ = {
 \t\t\tisa = PBXNativeTarget;
 \t\t\tbuildPhases = (
-\t\t\t\t3AC63B222FE6093A00F49D5D /* Sources */,
-\t\t\t\t3AC63B232FE6093A00F49D5D /* Frameworks */,
+\t\t\t\t3AC63B222FE6093A00F49D5D /* ソース */,
+\t\t\t\t3AC63B232FE6093A00F49D5D /* フレームワーク */,
 \t\t\t);
 \t\t\tdependencies = (
 \t\t\t\(appTestsDependencies)
@@ -284,18 +284,18 @@ private func projectFile(frameworkLinkTarget: String?, targetDependencyTarget: S
 \t\t4D1800110000000000000018 /* MeetingSignalTests */ = {
 \t\t\tisa = PBXNativeTarget;
 \t\t\tbuildPhases = (
-\t\t\t\t4D1800130000000000000018 /* Sources */,
-\t\t\t\t4D1800140000000000000018 /* Frameworks */,
+\t\t\t\t4D1800130000000000000018 /* ソース */,
+\t\t\t\t4D1800140000000000000018 /* フレームワーク */,
 \t\t\t);
 \t\t\tdependencies = (
-\t\t\t\t4D18001B0000000000000018 /* PBXTargetDependency */,
+\t\t\t\t4D18001B0000000000000018 /* ターゲット依存関係 */,
 \t\t\t);
 \t\t\tname = MeetingSignalTests;
 \t\t};
-\t\t4D18001B0000000000000018 /* PBXTargetDependency */ = {
+\t\t4D18001B0000000000000018 /* ターゲット依存関係 */ = {
 \t\t\tisa = PBXTargetDependency;
 \t\t\ttarget = 4D1800010000000000000018 /* MeetingSignal */;
-\t\t\ttargetProxy = 4D18001A0000000000000018 /* PBXContainerItemProxy */;
+\t\t\ttargetProxy = 4D18001A0000000000000018 /* コンテナ項目プロキシ */;
 \t\t};
 \t};
 }
