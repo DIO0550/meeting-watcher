@@ -86,6 +86,72 @@ struct MeetingDetectionPolicyTests {
         #expect(policy.evaluate(snapshot: mixedSnapshot) == .notInMeeting)
     }
 
+    @Test func defaultPolicyDetectsMicrophoneOnlyAsInMeeting() {
+        let policy = DefaultMeetingDetectionPolicy()
+        let snapshot = snapshot(
+            microphone: .active,
+            camera: .inactive,
+            processWindow: .inactive
+        )
+
+        #expect(policy.evaluate(snapshot: snapshot) == .inMeeting)
+    }
+
+    @Test func defaultPolicyDetectsCameraOnlyAsInMeeting() {
+        let policy = DefaultMeetingDetectionPolicy()
+        let snapshot = snapshot(
+            microphone: .inactive,
+            camera: .active,
+            processWindow: .inactive
+        )
+
+        #expect(policy.evaluate(snapshot: snapshot) == .inMeeting)
+    }
+
+    @Test func defaultPolicyDetectsAllInactiveAsNotInMeeting() {
+        let policy = DefaultMeetingDetectionPolicy()
+        let snapshot = snapshot(
+            microphone: .inactive,
+            camera: .inactive,
+            processWindow: .inactive
+        )
+
+        #expect(policy.evaluate(snapshot: snapshot) == .notInMeeting)
+    }
+
+    @Test func defaultPolicyReturnsUnknownWhenUnknownSignalsAreMixedWithoutActiveSignals() {
+        let policy = DefaultMeetingDetectionPolicy()
+        let snapshot = snapshot(
+            microphone: .inactive,
+            camera: .unknown,
+            processWindow: .inactive
+        )
+
+        #expect(policy.evaluate(snapshot: snapshot) == .unknown)
+    }
+
+    @Test func defaultPolicyTreatsMissingSignalsAsUnknown() {
+        let policy = DefaultMeetingDetectionPolicy()
+        let snapshot: SignalSnapshot = [
+            .microphone: RawSignalState(status: .inactive),
+            .camera: RawSignalState(status: .inactive)
+        ]
+
+        #expect(policy.evaluate(snapshot: snapshot) == .unknown)
+    }
+
+    private func snapshot(
+        microphone: RawSignalState.Status,
+        camera: RawSignalState.Status,
+        processWindow: RawSignalState.Status
+    ) -> SignalSnapshot {
+        [
+            .microphone: RawSignalState(status: microphone),
+            .camera: RawSignalState(status: camera),
+            .processWindow: RawSignalState(status: processWindow)
+        ]
+    }
+
     private var mixedSnapshot: SignalSnapshot {
         [
             .microphone: RawSignalState(status: .active),
