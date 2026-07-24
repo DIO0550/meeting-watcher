@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-import MeetingSignal
+import MeetingWatcher
 
 @MainActor
 @Suite("MeetingWatcher")
@@ -166,7 +166,9 @@ struct MeetingWatcherTests {
         watcher.updateSignal(.microphone, to: RawSignalState(status: .inactive))
 
         #expect(removingListenerCalls.calls.count == 2)
-        #expect(removedListenerCalls.calls.count <= 1)
+        #expect(removedListenerCalls.calls.count == 1)
+        #expect(removedListenerCalls.calls.first?.0 == .microphone)
+        #expect(removedListenerCalls.calls.first?.1 == RawSignalState(status: .active))
     }
 
     @Test func subscribeDuringNotificationAppliesFromNextUpdate() {

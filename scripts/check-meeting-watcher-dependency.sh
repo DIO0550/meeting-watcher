@@ -4,10 +4,10 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="${REPO_ROOT:-$(cd "$SCRIPT_DIR/.." && pwd)}"
 PROJECT_FILE="$REPO_ROOT/meeting-watcher/meeting-watcher.xcodeproj/project.pbxproj"
-FORBIDDEN_TARGETS=("meeting-watcher" "meeting-watcherTests")
+FORBIDDEN_TARGETS=("MeetingWatcher" "MeetingWatcherTests")
 FORBIDDEN_SOURCE_DIRS=(
-  "$REPO_ROOT/meeting-watcher/meeting-watcher"
-  "$REPO_ROOT/meeting-watcher/meeting-watcherTests"
+  "$REPO_ROOT/meeting-watcher/MeetingWatcher"
+  "$REPO_ROOT/meeting-watcher/MeetingWatcherTests"
 )
 
 failures=0
@@ -17,15 +17,117 @@ report_failure() {
   failures=$((failures + 1))
 }
 
+swift_files_importing_meeting_signal() {
+  perl -0777 -e '
+    sub sanitized_swift_source {
+      my ($source) = @_;
+      my $result = "";
+      my $length = length($source);
+      my $index = 0;
+      my $block_comment_depth = 0;
+
+      while ($index < $length) {
+        my $pair = substr($source, $index, 2);
+
+        if ($block_comment_depth > 0) {
+          if ($pair eq "/*") {
+            $block_comment_depth += 1;
+            $result .= "  ";
+            $index += 2;
+          } elsif ($pair eq "*/") {
+            $block_comment_depth -= 1;
+            $result .= "  ";
+            $index += 2;
+          } else {
+            my $character = substr($source, $index, 1);
+            $result .= $character eq "\n" ? "\n" : " ";
+            $index += 1;
+          }
+          next;
+        }
+
+        if ($pair eq "//") {
+          while ($index < $length && substr($source, $index, 1) ne "\n") {
+            $result .= " ";
+            $index += 1;
+          }
+          next;
+        }
+
+        if ($pair eq "/*") {
+          $block_comment_depth = 1;
+          $result .= "  ";
+          $index += 2;
+          next;
+        }
+
+        my $remaining = substr($source, $index);
+        if ($remaining =~ /\A(\#*)(""")/ || $remaining =~ /\A(\#*)(")/) {
+          my $hashes = $1;
+          my $quotes = $2;
+          my $opening_length = length($hashes) + length($quotes);
+          my $closing = $quotes . $hashes;
+          $result .= " " x $opening_length;
+          $index += $opening_length;
+
+          while ($index < $length) {
+            my $character = substr($source, $index, 1);
+            if (substr($source, $index, length($closing)) eq $closing) {
+              my $is_escaped = 0;
+              if ($hashes eq "") {
+                my $backslash_count = 0;
+                my $lookbehind = $index - 1;
+                while ($lookbehind >= 0 && substr($source, $lookbehind, 1) eq "\\") {
+                  $backslash_count += 1;
+                  $lookbehind -= 1;
+                }
+                $is_escaped = $backslash_count % 2;
+              }
+              if (!$is_escaped) {
+                $result .= " " x length($closing);
+                $index += length($closing);
+                last;
+              }
+            }
+            $result .= $character eq "\n" ? "\n" : " ";
+            $index += 1;
+          }
+          next;
+        }
+
+        $result .= substr($source, $index, 1);
+        $index += 1;
+      }
+
+      return $result;
+    }
+
+    while (<>) {
+      my $source = sanitized_swift_source($_);
+      if ($source =~ /(?:\A|[;\n])[[:space:]]*(?:@[A-Za-z_][A-Za-z0-9_]*(?:[[:space:]]*\([^;\n]*\))?[[:space:]]*)*(?:(?:public|internal|package|private|fileprivate)[[:space:]]+)?import[[:space:]]+(?:(?:typealias|struct|class|enum|protocol|let|var|func)[[:space:]]+)?MeetingSignal(?:\b|\.)/) {
+        print "$ARGV\n";
+      }
+    }
+  ' "$@"
+}
+
 check_forbidden_imports() {
-  local dir matches pattern
-  pattern="^[[:space:]]*(@[^[:space:]]+[[:space:]]+)*import[[:space:]]+MeetingSignal([[:space:]]|$)"
+  local dir matches file
+  local swift_files=()
   for dir in "${FORBIDDEN_SOURCE_DIRS[@]}"; do
     [[ -d "$dir" ]] || continue
-    matches="$(find "$dir" -type f -name "*.swift" -exec grep -HnE "$pattern" {} + || true)"
+    swift_files=()
+    while IFS= read -r -d "" file; do
+      swift_files+=("$file")
+    done < <(find "$dir" -type f -name "*.swift" -print0)
+
+    matches=""
+    if [[ ${#swift_files[@]} -gt 0 ]]; then
+      matches="$(swift_files_importing_meeting_signal "${swift_files[@]}")"
+    fi
     if [[ -n "$matches" ]]; then
       printf "%s\n" "$matches"
-      report_failure "MeetingSignal import is forbidden in watcher-side sources: $dir"
+      report_failure "MeetingSignal import is forbidden in MeetingWatcher sources: $dir"
     fi
   done
 }

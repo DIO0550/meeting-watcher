@@ -22,7 +22,7 @@ struct DependencyBoundaryScriptTests {
         for importVariant in importVariants {
             let fixture = try DependencyFixture.makeClean()
             try fixture.writeForbiddenSource(
-                "meeting-watcher/meeting-watcher/Forbidden.swift",
+                "meeting-watcher/MeetingWatcher/Forbidden.swift",
                 contents: importVariant
             )
 
@@ -34,10 +34,98 @@ struct DependencyBoundaryScriptTests {
         }
     }
 
-    @Test func appUnitTestMeetingSignalImportFails() throws {
+    @Test func accessLevelMeetingSignalImportsFail() throws {
+        let accessLevels = ["public", "internal", "package", "private", "fileprivate"]
+
+        for accessLevel in accessLevels {
+            let fixture = try DependencyFixture.makeClean()
+            try fixture.writeForbiddenSource(
+                "meeting-watcher/MeetingWatcher/Forbidden.swift",
+                contents: "\(accessLevel) import MeetingSignal"
+            )
+
+            let result = try fixture.runCheck()
+
+            #expect(result.terminationStatus != 0)
+            #expect(result.stderr.contains("MeetingSignal import is forbidden"))
+            #expect(result.stdout.contains("Forbidden.swift"))
+        }
+    }
+
+    @Test func semicolonSeparatedMeetingSignalImportFails() throws {
         let fixture = try DependencyFixture.makeClean()
         try fixture.writeForbiddenSource(
-            "meeting-watcher/meeting-watcherTests/ForbiddenTests.swift",
+            "meeting-watcher/MeetingWatcher/Forbidden.swift",
+            contents: "import Foundation; import MeetingSignal"
+        )
+
+        let result = try fixture.runCheck()
+
+        #expect(result.terminationStatus != 0)
+        #expect(result.stderr.contains("MeetingSignal import is forbidden"))
+        #expect(result.stdout.contains("Forbidden.swift"))
+    }
+
+    @Test func scopedMeetingSignalImportFails() throws {
+        let fixture = try DependencyFixture.makeClean()
+        try fixture.writeForbiddenSource(
+            "meeting-watcher/MeetingWatcher/Forbidden.swift",
+            contents: "import struct MeetingSignal.MeetingSignal"
+        )
+
+        let result = try fixture.runCheck()
+
+        #expect(result.terminationStatus != 0)
+        #expect(result.stderr.contains("MeetingSignal import is forbidden"))
+        #expect(result.stdout.contains("Forbidden.swift"))
+    }
+
+    @Test func attributedMeetingSignalImportWithCommentFails() throws {
+        let fixture = try DependencyFixture.makeClean()
+        try fixture.writeForbiddenSource(
+            "meeting-watcher/MeetingWatcher/Forbidden.swift",
+            contents: "@_exported /* boundary */ import MeetingSignal"
+        )
+
+        let result = try fixture.runCheck()
+
+        #expect(result.terminationStatus != 0)
+        #expect(result.stderr.contains("MeetingSignal import is forbidden"))
+        #expect(result.stdout.contains("Forbidden.swift"))
+    }
+
+    @Test func importsInsideCommentsAndStringsDoNotFail() throws {
+        let ignoredSources = [
+            "// import MeetingSignal",
+            "/* outer /* import MeetingSignal */ boundary */",
+            #"let value = "import MeetingSignal""#,
+            ##"let value = #"import MeetingSignal"#"##,
+            #"""
+            let value = """
+            import MeetingSignal
+            """
+            """#,
+        ]
+
+        for source in ignoredSources {
+            let fixture = try DependencyFixture.makeClean()
+            try fixture.writeForbiddenSource(
+                "meeting-watcher/MeetingWatcher/Ignored.swift",
+                contents: source
+            )
+
+            let result = try fixture.runCheck()
+
+            #expect(result.terminationStatus == 0)
+            #expect(!result.stderr.contains("error:"))
+            #expect(!result.stdout.contains("Ignored.swift"))
+        }
+    }
+
+    @Test func watcherUnitTestMeetingSignalImportFails() throws {
+        let fixture = try DependencyFixture.makeClean()
+        try fixture.writeForbiddenSource(
+            "meeting-watcher/MeetingWatcherTests/ForbiddenTests.swift",
             contents: "import Testing\n@testable import MeetingSignal"
         )
 
@@ -48,10 +136,10 @@ struct DependencyBoundaryScriptTests {
         #expect(result.stdout.contains("ForbiddenTests.swift"))
     }
 
-    @Test func forbiddenFrameworkLinksFailForAppAndAppTests() throws {
+    @Test func forbiddenFrameworkLinksFailForWatcherAndWatcherTests() throws {
         let cases: [(target: String, expected: String)] = [
-            ("meeting-watcher", "target meeting-watcher must not link MeetingSignal.framework"),
-            ("meeting-watcherTests", "target meeting-watcherTests must not link MeetingSignal.framework"),
+            ("MeetingWatcher", "target MeetingWatcher must not link MeetingSignal.framework"),
+            ("MeetingWatcherTests", "target MeetingWatcherTests must not link MeetingSignal.framework"),
         ]
 
         for testCase in cases {
@@ -63,10 +151,10 @@ struct DependencyBoundaryScriptTests {
         }
     }
 
-    @Test func forbiddenTargetDependenciesFailForAppAndAppTests() throws {
+    @Test func forbiddenTargetDependenciesFailForWatcherAndWatcherTests() throws {
         let cases: [(target: String, expected: String)] = [
-            ("meeting-watcher", "target meeting-watcher must not depend on MeetingSignal"),
-            ("meeting-watcherTests", "target meeting-watcherTests must not depend on MeetingSignal"),
+            ("MeetingWatcher", "target MeetingWatcher must not depend on MeetingSignal"),
+            ("MeetingWatcherTests", "target MeetingWatcherTests must not depend on MeetingSignal"),
         ]
 
         for testCase in cases {
@@ -93,11 +181,11 @@ struct DependencyBoundaryScriptTests {
         #expect(!result.stderr.contains("MeetingSignal import is forbidden"))
     }
 
-    @Test func runScriptPhasePrecedesSourcesInAppTarget() throws {
+    @Test func runScriptPhasePrecedesSourcesInMeetingWatcherTarget() throws {
         let project = try String(contentsOf: repositoryRoot()
             .appendingPathComponent("meeting-watcher/meeting-watcher.xcodeproj/project.pbxproj"))
-        let targetBlock = try #require(nativeTargetBlock(named: "meeting-watcher", in: project))
-        let checkIndex = try #require(targetBlock.range(of: "/* MeetingSignal依存境界チェック */"))
+        let targetBlock = try #require(nativeTargetBlock(named: "MeetingWatcher", in: project))
+        let checkIndex = try #require(targetBlock.range(of: "/* MeetingWatcher依存境界チェック */"))
         let sourcesIndex = try #require(targetBlock.range(of: "/* ソース */"))
 
         #expect(checkIndex.lowerBound < sourcesIndex.lowerBound)
@@ -120,12 +208,12 @@ private struct DependencyFixture {
             .appendingPathComponent(UUID().uuidString)
         let fixture = DependencyFixture(root: root)
         try fixture.writeText(
-            "meeting-watcher/meeting-watcher/ContentView.swift",
+            "meeting-watcher/MeetingWatcher/MeetingWatcher.swift",
             contents: "import SwiftUI\nstruct ContentView {}\n"
         )
         try fixture.writeText(
-            "meeting-watcher/meeting-watcherTests/meeting_watcherTests.swift",
-            contents: "import Testing\n@testable import meeting_watcher\n"
+            "meeting-watcher/MeetingWatcherTests/MeetingWatcherTests.swift",
+            contents: "import Testing\nimport MeetingWatcher\n"
         )
         try fixture.writeProjectFile(projectFile(
             frameworkLinkTarget: frameworkLinkTarget,
@@ -165,7 +253,7 @@ private struct ScriptResult {
 private func runScript(root: URL) throws -> ScriptResult {
     let process = Process()
     process.executableURL = URL(fileURLWithPath: "/bin/bash")
-    process.arguments = [repositoryRoot().appendingPathComponent("scripts/check-meeting-signal-dependency.sh").path]
+    process.arguments = [repositoryRoot().appendingPathComponent("scripts/check-meeting-watcher-dependency.sh").path]
     process.environment = ["REPO_ROOT": root.path, "PATH": "/usr/bin:/bin:/usr/sbin:/sbin"]
 
     let stdout = Pipe()
@@ -211,10 +299,10 @@ private func nativeTargetBlock(named name: String, in text: String) -> String? {
 }
 
 private func projectFile(frameworkLinkTarget: String?, targetDependencyTarget: String?) -> String {
-    let appFrameworkFiles = frameworkLinkTarget == "meeting-watcher" ? "\n\t\t\t\t4D1800160000000000000018 /* MeetingSignal.framework（フレームワーク内） */," : ""
-    let appTestsFrameworkFiles = frameworkLinkTarget == "meeting-watcherTests" ? "\n\t\t\t\t4D1800160000000000000018 /* MeetingSignal.framework（フレームワーク内） */," : ""
-    let appDependencies = targetDependencyTarget == "meeting-watcher" ? "\n\t\t\t\t4D18001B0000000000000018 /* ターゲット依存関係 */," : ""
-    let appTestsDependencies = targetDependencyTarget == "meeting-watcherTests" ? "\n\t\t\t\t4D18001B0000000000000018 /* ターゲット依存関係 */," : ""
+    let watcherFrameworkFiles = frameworkLinkTarget == "MeetingWatcher" ? "\n\t\t\t\t4D1800160000000000000018 /* MeetingSignal.framework（フレームワーク内） */," : ""
+    let watcherTestsFrameworkFiles = frameworkLinkTarget == "MeetingWatcherTests" ? "\n\t\t\t\t4D1800160000000000000018 /* MeetingSignal.framework（フレームワーク内） */," : ""
+    let watcherDependencies = targetDependencyTarget == "MeetingWatcher" ? "\n\t\t\t\t4D18001B0000000000000018 /* ターゲット依存関係 */," : ""
+    let watcherTestsDependencies = targetDependencyTarget == "MeetingWatcherTests" ? "\n\t\t\t\t4D18001B0000000000000018 /* ターゲット依存関係 */," : ""
 
     return """
 // !$*UTF8*$!
@@ -233,13 +321,13 @@ private func projectFile(frameworkLinkTarget: String?, targetDependencyTarget: S
 \t\t3AC63B162FE6093600F49D5D /* フレームワーク */ = {
 \t\t\tisa = PBXFrameworksBuildPhase;
 \t\t\tfiles = (
-\t\t\t\(appFrameworkFiles)
+\t\t\t\(watcherFrameworkFiles)
 \t\t\t);
 \t\t};
 \t\t3AC63B232FE6093A00F49D5D /* フレームワーク */ = {
 \t\t\tisa = PBXFrameworksBuildPhase;
 \t\t\tfiles = (
-\t\t\t\(appTestsFrameworkFiles)
+\t\t\t\(watcherTestsFrameworkFiles)
 \t\t\t);
 \t\t};
 \t\t4D1800140000000000000018 /* フレームワーク */ = {
@@ -251,27 +339,27 @@ private func projectFile(frameworkLinkTarget: String?, targetDependencyTarget: S
 \t\t3AC63B152FE6093600F49D5D /* ソース */ = { isa = PBXSourcesBuildPhase; files = (); };
 \t\t3AC63B222FE6093A00F49D5D /* ソース */ = { isa = PBXSourcesBuildPhase; files = (); };
 \t\t4D1800130000000000000018 /* ソース */ = { isa = PBXSourcesBuildPhase; files = (); };
-\t\t3AC63B182FE6093600F49D5D /* meeting-watcher */ = {
+\t\t3AC63B182FE6093600F49D5D /* MeetingWatcher */ = {
 \t\t\tisa = PBXNativeTarget;
 \t\t\tbuildPhases = (
 \t\t\t\t3AC63B152FE6093600F49D5D /* ソース */,
 \t\t\t\t3AC63B162FE6093600F49D5D /* フレームワーク */,
 \t\t\t);
 \t\t\tdependencies = (
-\t\t\t\(appDependencies)
+\t\t\t\(watcherDependencies)
 \t\t\t);
-\t\t\tname = "meeting-watcher";
+\t\t\tname = MeetingWatcher;
 \t\t};
-\t\t3AC63B252FE6093A00F49D5D /* meeting-watcherTests */ = {
+\t\t3AC63B252FE6093A00F49D5D /* MeetingWatcherTests */ = {
 \t\t\tisa = PBXNativeTarget;
 \t\t\tbuildPhases = (
 \t\t\t\t3AC63B222FE6093A00F49D5D /* ソース */,
 \t\t\t\t3AC63B232FE6093A00F49D5D /* フレームワーク */,
 \t\t\t);
 \t\t\tdependencies = (
-\t\t\t\(appTestsDependencies)
+\t\t\t\(watcherTestsDependencies)
 \t\t\t);
-\t\t\tname = "meeting-watcherTests";
+\t\t\tname = MeetingWatcherTests;
 \t\t};
 \t\t4D1800010000000000000018 /* MeetingSignal */ = {
 \t\t\tisa = PBXNativeTarget;

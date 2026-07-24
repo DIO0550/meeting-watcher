@@ -1,3 +1,5 @@
+import MeetingWatcher
+
 /// マイクまたはカメラが `.active` のときに会議中と判定する既定ポリシーです。
 ///
 /// 両方が `.active` でなければ、`.unknown` やキー欠落を含めて
