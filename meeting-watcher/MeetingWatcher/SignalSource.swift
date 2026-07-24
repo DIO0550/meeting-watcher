@@ -1,7 +1,7 @@
 /// 会議ウォーカーの生シグナルを読み取り、購読するための公開境界です。
 ///
-/// ウォーカー側のアプリターゲットは `MeetingSignal` に直接依存してはいけません。
-/// 現在の最小変更フェーズでは、このプロトコルを `MeetingSignal` に置きます。
+/// この型は監視コアの `MeetingWatcher` モジュールに属し、通知層の
+/// `MeetingSignal` には依存しません。
 @MainActor
 public protocol SignalSource {
     /// 実運用のスナップショットには、すべての `SignalKind` が含まれます。

@@ -29,6 +29,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4D3700010000000000000037"
+               BuildableName = "MeetingWatcher.framework"
+               BlueprintName = "MeetingWatcher"
+               ReferencedContainer = "container:meeting-watcher.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "4D1800010000000000000018"
                BuildableName = "MeetingSignal.framework"
                BlueprintName = "MeetingSignal"
@@ -63,6 +77,17 @@
                BlueprintIdentifier = "3AC63B2F2FE6093A00F49D5D"
                BuildableName = "meeting-watcherUITests.xctest"
                BlueprintName = "meeting-watcherUITests"
+               ReferencedContainer = "container:meeting-watcher.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4D3700110000000000000037"
+               BuildableName = "MeetingWatcherTests.xctest"
+               BlueprintName = "MeetingWatcherTests"
                ReferencedContainer = "container:meeting-watcher.xcodeproj">
             </BuildableReference>
          </TestableReference>

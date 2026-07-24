@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-import MeetingSignal
+import MeetingWatcher
 
 struct RawSignalStateTests {
     @Test func statusAllCasesExposeKnownStatesInStableOrder() {

@@ -1,5 +1,5 @@
 import Testing
-import MeetingSignal
+import MeetingWatcher
 
 struct SignalKindTests {
     @Test func exposesExpectedSignalKindCases() {

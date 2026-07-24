@@ -8,6 +8,9 @@
 
 /* PBXBuildFileセクション開始 */
 		4D1800160000000000000018 /* MeetingSignal.framework（フレームワーク内） */ = {isa = PBXBuildFile; fileRef = 4D1800070000000000000018 /* MeetingSignal.framework */; };
+		4D3700160000000000000037 /* MeetingWatcher.framework（フレームワーク内） */ = {isa = PBXBuildFile; fileRef = 4D3700070000000000000037 /* MeetingWatcher.framework */; };
+		4D37001D0000000000000037 /* MeetingWatcher.framework（フレームワーク内） */ = {isa = PBXBuildFile; fileRef = 4D3700070000000000000037 /* MeetingWatcher.framework */; };
+		4D3700210000000000000037 /* MeetingWatcher.framework（フレームワーク内） */ = {isa = PBXBuildFile; fileRef = 4D3700070000000000000037 /* MeetingWatcher.framework */; };
 /* PBXBuildFileセクション終了 */
 
 /* PBXContainerItemProxyセクション開始 */
@@ -32,6 +35,27 @@
 			remoteGlobalIDString = 4D1800010000000000000018;
 			remoteInfo = MeetingSignal;
 		};
+		4D37001A0000000000000037 /* コンテナ項目プロキシ */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3AC63B112FE6093600F49D5D /* プロジェクトオブジェクト */;
+			proxyType = 1;
+			remoteGlobalIDString = 4D3700010000000000000037;
+			remoteInfo = MeetingWatcher;
+		};
+		4D37001E0000000000000037 /* コンテナ項目プロキシ */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3AC63B112FE6093600F49D5D /* プロジェクトオブジェクト */;
+			proxyType = 1;
+			remoteGlobalIDString = 4D3700010000000000000037;
+			remoteInfo = MeetingWatcher;
+		};
+		4D3700230000000000000037 /* コンテナ項目プロキシ */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3AC63B112FE6093600F49D5D /* プロジェクトオブジェクト */;
+			proxyType = 1;
+			remoteGlobalIDString = 4D3700010000000000000037;
+			remoteInfo = MeetingWatcher;
+		};
 /* PBXContainerItemProxyセクション終了 */
 
 /* PBXFileReferenceセクション開始 */
@@ -40,6 +64,8 @@
 		3AC63B302FE6093A00F49D5D /* meeting-watcherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "meeting-watcherUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D1800070000000000000018 /* MeetingSignal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MeetingSignal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D1800170000000000000018 /* MeetingSignalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MeetingSignalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D3700070000000000000037 /* MeetingWatcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MeetingWatcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D3700170000000000000037 /* MeetingWatcherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MeetingWatcherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* PBXFileReferenceセクション終了 */
 
 /* PBXFileSystemSynchronizedRootGroupセクション開始 */
@@ -66,6 +92,16 @@
 		4D1800120000000000000018 /* MeetingSignalTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = MeetingSignalTests;
+			sourceTree = "<group>";
+		};
+		4D3700020000000000000037 /* MeetingWatcher */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = MeetingWatcher;
+			sourceTree = "<group>";
+		};
+		4D3700120000000000000037 /* MeetingWatcherTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = MeetingWatcherTests;
 			sourceTree = "<group>";
 		};
 /* PBXFileSystemSynchronizedRootGroupセクション終了 */
@@ -96,6 +132,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D37001D0000000000000037 /* MeetingWatcher.framework（フレームワーク内） */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,6 +141,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D1800160000000000000018 /* MeetingSignal.framework（フレームワーク内） */,
+				4D3700210000000000000037 /* MeetingWatcher.framework（フレームワーク内） */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D3700040000000000000037 /* フレームワーク */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D3700140000000000000037 /* フレームワーク */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D3700160000000000000037 /* MeetingWatcher.framework（フレームワーク内） */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,6 +169,8 @@
 				3AC63B1B2FE6093700F49D5D /* meeting-watcher */,
 				3AC63B292FE6093A00F49D5D /* meeting-watcherTests */,
 				3AC63B332FE6093A00F49D5D /* meeting-watcherUITests */,
+				4D3700020000000000000037 /* MeetingWatcher */,
+				4D3700120000000000000037 /* MeetingWatcherTests */,
 				4D1800020000000000000018 /* MeetingSignal */,
 				4D1800120000000000000018 /* MeetingSignalTests */,
 				3AC63B1A2FE6093700F49D5D /* プロダクト */,
@@ -128,6 +183,8 @@
 				3AC63B192FE6093700F49D5D /* meeting-watcher.app */,
 				3AC63B262FE6093A00F49D5D /* meeting-watcherTests.xctest */,
 				3AC63B302FE6093A00F49D5D /* meeting-watcherUITests.xctest */,
+				4D3700070000000000000037 /* MeetingWatcher.framework */,
+				4D3700170000000000000037 /* MeetingWatcherTests.xctest */,
 				4D1800070000000000000018 /* MeetingSignal.framework */,
 				4D1800170000000000000018 /* MeetingSignalTests.xctest */,
 			);
@@ -144,6 +201,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4D3700050000000000000037 /* ヘッダー */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* PBXHeadersBuildPhaseセクション終了 */
 
 /* PBXNativeTargetセクション開始 */
@@ -151,7 +215,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3AC63B3A2FE6093A00F49D5D /* PBXNativeTarget "meeting-watcher" のビルド構成リスト */;
 			buildPhases = (
-				4D1800200000000000000021 /* MeetingSignal依存境界チェック */,
 				3AC63B152FE6093600F49D5D /* ソース */,
 				3AC63B162FE6093600F49D5D /* フレームワーク */,
 				3AC63B172FE6093600F49D5D /* リソース */,
@@ -228,6 +291,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				4D37001F0000000000000037 /* ターゲット依存関係 */,
 			);
 			fileSystemSynchronizedGroups = (
 				4D1800020000000000000018 /* MeetingSignal */,
@@ -251,6 +315,7 @@
 			);
 			dependencies = (
 				4D18001B0000000000000018 /* ターゲット依存関係 */,
+				4D3700240000000000000037 /* ターゲット依存関係 */,
 			);
 			fileSystemSynchronizedGroups = (
 				4D1800120000000000000018 /* MeetingSignalTests */,
@@ -260,6 +325,53 @@
 			);
 			productName = MeetingSignalTests;
 			productReference = 4D1800170000000000000018 /* MeetingSignalTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		4D3700010000000000000037 /* MeetingWatcher */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4D3700080000000000000037 /* PBXNativeTarget "MeetingWatcher" のビルド構成リスト */;
+			buildPhases = (
+				4D1800200000000000000021 /* MeetingWatcher依存境界チェック */,
+				4D3700030000000000000037 /* ソース */,
+				4D3700040000000000000037 /* フレームワーク */,
+				4D3700050000000000000037 /* ヘッダー */,
+				4D3700060000000000000037 /* リソース */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				4D3700020000000000000037 /* MeetingWatcher */,
+			);
+			name = MeetingWatcher;
+			packageProductDependencies = (
+			);
+			productName = MeetingWatcher;
+			productReference = 4D3700070000000000000037 /* MeetingWatcher.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		4D3700110000000000000037 /* MeetingWatcherTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4D3700180000000000000037 /* PBXNativeTarget "MeetingWatcherTests" のビルド構成リスト */;
+			buildPhases = (
+				4D3700130000000000000037 /* ソース */,
+				4D3700140000000000000037 /* フレームワーク */,
+				4D3700150000000000000037 /* リソース */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4D37001B0000000000000037 /* ターゲット依存関係 */,
+			);
+			fileSystemSynchronizedGroups = (
+				4D3700120000000000000037 /* MeetingWatcherTests */,
+			);
+			name = MeetingWatcherTests;
+			packageProductDependencies = (
+			);
+			productName = MeetingWatcherTests;
+			productReference = 4D3700170000000000000037 /* MeetingWatcherTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* PBXNativeTargetセクション終了 */
@@ -289,6 +401,12 @@
 					4D1800110000000000000018 = {
 						CreatedOnToolsVersion = 26.4;
 					};
+					4D3700010000000000000037 = {
+						CreatedOnToolsVersion = 26.4;
+					};
+					4D3700110000000000000037 = {
+						CreatedOnToolsVersion = 26.4;
+					};
 				};
 			};
 			buildConfigurationList = 3AC63B142FE6093600F49D5D /* PBXProject "meeting-watcher" のビルド構成リスト */;
@@ -308,6 +426,8 @@
 				3AC63B182FE6093600F49D5D /* meeting-watcher */,
 				3AC63B252FE6093A00F49D5D /* meeting-watcherTests */,
 				3AC63B2F2FE6093A00F49D5D /* meeting-watcherUITests */,
+				4D3700010000000000000037 /* MeetingWatcher */,
+				4D3700110000000000000037 /* MeetingWatcherTests */,
 				4D1800010000000000000018 /* MeetingSignal */,
 				4D1800110000000000000018 /* MeetingSignalTests */,
 			);
@@ -350,10 +470,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4D3700060000000000000037 /* リソース */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D3700150000000000000037 /* リソース */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* PBXResourcesBuildPhaseセクション終了 */
 
 /* PBXShellScriptBuildPhaseセクション開始 */
-		4D1800200000000000000021 /* MeetingSignal依存境界チェック */ = {
+		4D1800200000000000000021 /* MeetingWatcher依存境界チェック */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -361,17 +495,19 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/../scripts/check-meeting-signal-dependency.sh",
+				"$(SRCROOT)/../scripts/check-meeting-watcher-dependency.sh",
+				"$(SRCROOT)/MeetingWatcher",
+				"$(SRCROOT)/MeetingWatcherTests",
 				"$(SRCROOT)/meeting-watcher.xcodeproj/project.pbxproj",
 			);
-			name = "Check MeetingSignal dependency boundary";
+			name = "Check MeetingWatcher dependency boundary";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "bash \"$SRCROOT/../scripts/check-meeting-signal-dependency.sh\"";
+			shellScript = "bash \"$SRCROOT/../scripts/check-meeting-watcher-dependency.sh\"";
 		};
 /* PBXShellScriptBuildPhaseセクション終了 */
 
@@ -411,6 +547,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4D3700030000000000000037 /* ソース */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D3700130000000000000037 /* ソース */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* PBXSourcesBuildPhaseセクション終了 */
 
 /* PBXTargetDependencyセクション開始 */
@@ -428,6 +578,21 @@
 			isa = PBXTargetDependency;
 			target = 4D1800010000000000000018 /* MeetingSignal */;
 			targetProxy = 4D18001A0000000000000018 /* コンテナ項目プロキシ */;
+		};
+		4D37001B0000000000000037 /* ターゲット依存関係 */ = {
+			isa = PBXTargetDependency;
+			target = 4D3700010000000000000037 /* MeetingWatcher */;
+			targetProxy = 4D37001A0000000000000037 /* コンテナ項目プロキシ */;
+		};
+		4D37001F0000000000000037 /* ターゲット依存関係 */ = {
+			isa = PBXTargetDependency;
+			target = 4D3700010000000000000037 /* MeetingWatcher */;
+			targetProxy = 4D37001E0000000000000037 /* コンテナ項目プロキシ */;
+		};
+		4D3700240000000000000037 /* ターゲット依存関係 */ = {
+			isa = PBXTargetDependency;
+			target = 4D3700010000000000000037 /* MeetingWatcher */;
+			targetProxy = 4D3700230000000000000037 /* コンテナ項目プロキシ */;
 		};
 /* PBXTargetDependencyセクション終了 */
 
@@ -778,6 +943,88 @@
 			};
 			name = Release;
 		};
+		4D3700090000000000000037 /* デバッグ */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RMVJT9K8W3;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dio0550.MeetingWatcher;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		4D37000A0000000000000037 /* リリース */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RMVJT9K8W3;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dio0550.MeetingWatcher;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		4D3700190000000000000037 /* デバッグ */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RMVJT9K8W3;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dio0550.MeetingWatcherTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		4D37001C0000000000000037 /* リリース */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RMVJT9K8W3;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dio0550.MeetingWatcherTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* XCBuildConfigurationセクション終了 */
 
 /* XCConfigurationListセクション開始 */
@@ -831,6 +1078,24 @@
 			buildConfigurations = (
 				4D1800190000000000000018 /* デバッグ */,
 				4D18001C0000000000000018 /* リリース */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4D3700080000000000000037 /* PBXNativeTarget "MeetingWatcher" のビルド構成リスト */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D3700090000000000000037 /* デバッグ */,
+				4D37000A0000000000000037 /* リリース */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4D3700180000000000000037 /* PBXNativeTarget "MeetingWatcherTests" のビルド構成リスト */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D3700190000000000000037 /* デバッグ */,
+				4D37001C0000000000000037 /* リリース */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
